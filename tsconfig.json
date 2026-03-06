@@ -19,7 +19,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@pages/*": ["./components/pages/*"],
+      "@ui/*": ["./components/ui/*"]
     }
   },
   "include": [
