@@ -1,5 +1,7 @@
-.next
-node_modules
-build
-out
+dist/
+node_modules/
+.next/
+.turbo/
+coverage/
 pnpm-lock.yaml
+.pnpm-store/
