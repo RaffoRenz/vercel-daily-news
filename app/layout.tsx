@@ -1,10 +1,12 @@
 import { Geist_Mono, Noto_Sans } from "next/font/google"
 
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/providers/theme-provider"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { cn } from "@/lib/utils"
-import Header from "@/components/organisms/Header"
+import Header from "@/components/header/Header"
+import Footer from "@/components/Footer"
+import { Metadata } from "next"
 
 const notoSans = Noto_Sans({ variable: "--font-sans" })
 
@@ -12,6 +14,11 @@ const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
+
+export const metadata: Metadata = {
+  title: { template: "Vercel Daily News - %s", default: "Vercel Daily News" },
+  description: "Your daily dose of Vercel news and updates.",
+}
 
 export default function RootLayout({
   children,
@@ -33,6 +40,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Header />
           {children}
+          <Footer />
         </ThemeProvider>
         <SpeedInsights />
       </body>

@@ -10,7 +10,7 @@ const NavigationMenu = () => {
             variant="link"
             size="lg"
             nativeButton={false}
-            render={<Link href="/" />}
+            render={<Link href="/" prefetch />}
           >
             Home
           </Button>
@@ -20,7 +20,7 @@ const NavigationMenu = () => {
             variant="link"
             size="lg"
             nativeButton={false}
-            render={<Link href="/articles" />}
+            render={<Link href="/articles" prefetch />}
           >
             Articles
           </Button>

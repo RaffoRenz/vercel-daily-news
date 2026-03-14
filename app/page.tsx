@@ -1,9 +1,5 @@
 import { Button } from "@/components/ui/atoms/button"
 
 export default function Page() {
-  return (
-    <div className="flex min-h-svh p-6">
-      <Button>Button</Button>
-    </div>
-  )
+  return <div className="flex min-h-svh p-6"></div>
 }
