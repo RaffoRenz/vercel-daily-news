@@ -4,6 +4,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { cn } from "@/lib/utils"
+import Header from "@/components/organisms/Header"
 
 const notoSans = Noto_Sans({ variable: "--font-sans" })
 
@@ -29,7 +30,10 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <Header />
+          {children}
+        </ThemeProvider>
         <SpeedInsights />
       </body>
     </html>
