@@ -43,8 +43,16 @@ interface Author {
 
 interface Category {
   articleCount: number
-  name: string
+  name: CategoryType
   slug: string
+}
+
+enum CategoryType {
+  CHANGELOG = "changelog",
+  ENGINEERING = "engineering",
+  CUSTOMERS = "customers",
+  COMPANY_NEWS = "company-news",
+  COMMUNITY = "community",
 }
 
 interface Article extends Metadata {
@@ -64,10 +72,12 @@ interface Article extends Metadata {
 interface BreakingNews extends Metadata {
   articleId: string
   headline: string
-  category: string
+  category: CategoryType
   summary: string
   urgent: boolean
 }
+
+export { CategoryType }
 
 export type {
   Author,

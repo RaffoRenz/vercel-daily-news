@@ -26,16 +26,6 @@ const PopoverNavigationMenu: React.FC = () => {
                 variant="link"
                 size="lg"
                 nativeButton={false}
-                render={<Link href="/" prefetch />}
-              >
-                Home
-              </Button>
-            </li>
-            <li>
-              <Button
-                variant="link"
-                size="lg"
-                nativeButton={false}
                 render={<Link href="/articles" prefetch />}
               >
                 Articles

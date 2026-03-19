@@ -1,5 +1,12 @@
-import { Button } from "@/components/ui/atoms/button"
+import BreakingNewsBanner from "@/components/BreakingNewsBanner"
 
 export default function Page() {
-  return <div className="flex min-h-svh p-6"></div>
+  return (
+    <div
+      data-slot="homepage"
+      className="w-full px-4 py-2 lg:mx-auto lg:max-w-[1440px]"
+    >
+      <BreakingNewsBanner />
+    </div>
+  )
 }

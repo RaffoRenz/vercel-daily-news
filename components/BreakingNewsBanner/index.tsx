@@ -1,0 +1,12 @@
+import { getBreakingNews } from "@/lib/services/articles/getBreakingNews"
+import { BreakingNewsClient } from "./BreakingNewsClient"
+
+export default async function BreakingNewsBanner() {
+  const breakingNewsContent = await getBreakingNews()
+
+  if (!breakingNewsContent) return null
+
+  console.log(breakingNewsContent, ">> breakingNewscontent")
+
+  return <BreakingNewsClient breakingNewsContent={breakingNewsContent} />
+}

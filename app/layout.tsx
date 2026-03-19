@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import Header from "@/components/header/Header"
 import Footer from "@/components/Footer"
 import { Metadata } from "next"
+import BreakingNewsBanner from "@/components/BreakingNewsBanner"
 
 const notoSans = Noto_Sans({ variable: "--font-sans" })
 
@@ -39,7 +40,7 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <Header />
-          {children}
+          <main className="h-full min-h-svh w-full">{children}</main>
           <Footer />
         </ThemeProvider>
         <SpeedInsights />

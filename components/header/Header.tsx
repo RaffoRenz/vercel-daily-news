@@ -3,6 +3,8 @@ import NavigationMenu from "@/components/header/NavigationMenu"
 import { ThemeSwitcher } from "@/providers/theme-provider"
 import SubscriptionStatus from "@/components/common/SubscriptionStatus"
 import PopoverNavigationMenu from "@/components/header/PopoverNavigationMenu"
+import Link from "next/link"
+import BreakingNewsBanner from "../BreakingNewsBanner"
 
 const Header: React.FC = () => {
   return (
@@ -15,7 +17,9 @@ const Header: React.FC = () => {
           <PopoverNavigationMenu />
         </section>
         <section className="absolute top-0 left-1/2 h-full w-fit -translate-x-1/2">
-          <VercelLogo />
+          <Link href="/" prefetch={false} scroll={false}>
+            <VercelLogo />
+          </Link>
         </section>
         <div
           data-slot="navigation-actions"
