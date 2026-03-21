@@ -11,7 +11,7 @@ export default function HeroBanner() {
         src="/assets/Vercel_banner.webp" // metti la tua immagine in /public
         alt="Hero background"
         fill
-        preload
+        priority
         className="z-0 object-cover object-center"
       />
 
