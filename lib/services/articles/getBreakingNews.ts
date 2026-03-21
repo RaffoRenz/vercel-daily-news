@@ -3,6 +3,7 @@ import { BreakingNews } from "@/models/articles.models"
 import { ApiResponse } from "@/lib/services/services.interfaces"
 
 export async function getBreakingNews(): Promise<BreakingNews | null> {
+  "use cache"
   let breakingNews: BreakingNews | null = null
   try {
     // no-cache since we want to fetch always fresh breaking news

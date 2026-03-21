@@ -18,16 +18,17 @@ export async function getArticles({
   search,
   featured,
 }: GetArticlesParams): Promise<Article[] | null> {
-  cacheTag("articles")
+  "use cache"
+  cacheTag("articles", search ? `search:${search}` : "all")
   let articles: Article[] | null = null
   let apiEndpoint: string = "/api/articles"
   try {
     const params = new URLSearchParams()
-    page && params.append("page", page.toString())
-    limit && params.append("limit", limit.toString())
-    category && params.append("category", category)
-    search && params.append("search", search)
-    featured && params.append("featured", featured.toString())
+    if (page) params.append("page", page.toString())
+    if (limit) params.append("limit", limit.toString())
+    if (category) params.append("category", category)
+    if (search) params.append("search", search)
+    if (featured) params.append("featured", featured.toString())
     if (params.toString()) apiEndpoint = `${apiEndpoint}?${params.toString()}`
 
     const response = await fetchAPI<ApiResponse<Article[]>>(apiEndpoint, {

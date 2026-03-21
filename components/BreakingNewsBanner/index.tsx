@@ -6,7 +6,5 @@ export default async function BreakingNewsBanner() {
 
   if (!breakingNewsContent) return null
 
-  console.log(breakingNewsContent, ">> breakingNewscontent")
-
   return <BreakingNewsClient breakingNewsContent={breakingNewsContent} />
 }

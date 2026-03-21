@@ -33,7 +33,7 @@ export function ThemeSwitcher() {
     <Button
       size="icon-lg"
       onClick={toggleTheme}
-      aria-label={`Switch to ${resolvedTheme === "light" ? "dark" : "light"} theme (current: ${resolvedTheme})`}
+      aria-label={`Switch to ${resolvedTheme === "light" ? "dark" : "light"} theme (current: ${typeof window === "undefined" ? "light" : resolvedTheme})`}
     >
       {resolvedTheme === "light" ? (
         <MoonIcon strokeWidth={1.5} />

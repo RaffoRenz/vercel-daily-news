@@ -4,11 +4,10 @@ import { ThemeSwitcher } from "@/providers/theme-provider"
 import SubscriptionStatus from "@/components/common/SubscriptionStatus"
 import PopoverNavigationMenu from "@/components/header/PopoverNavigationMenu"
 import Link from "next/link"
-import BreakingNewsBanner from "../BreakingNewsBanner"
 
 const Header: React.FC = () => {
   return (
-    <header className="sticky inset-0 z-50 h-(--header-mobile-height) w-full px-4 py-2 lg:h-(--header-desktop-height)">
+    <header className="sticky inset-0 z-20 h-(--header-mobile-height) w-full border-b border-b-chart-1 bg-background px-4 py-2 lg:h-(--header-desktop-height)">
       <div className="relative flex h-full w-full items-center justify-between">
         <section className="hidden md:block">
           <NavigationMenu />
