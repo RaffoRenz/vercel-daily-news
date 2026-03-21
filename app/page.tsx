@@ -1,5 +1,9 @@
-import { Button } from "@/components/ui/atoms/button"
+import HeroBanner from "@/components/HeroBanner"
 
 export default function Page() {
-  return <div className="flex min-h-svh p-6"></div>
+  return (
+    <div data-slot="homepage" className="w-full">
+      <HeroBanner />
+    </div>
+  )
 }

@@ -5,8 +5,10 @@ import { ThemeProvider } from "@/providers/theme-provider"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { cn } from "@/lib/utils"
 import Header from "@/components/header/Header"
-import Footer from "@/components/Footer"
+import Footer from "@/components/footer"
 import { Metadata } from "next"
+import { Suspense } from "react"
+import { AppShellDynamic } from "@/components/common/AppShellDynamic"
 
 const notoSans = Noto_Sans({ variable: "--font-sans" })
 
@@ -39,7 +41,9 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <Header />
-          {children}
+          <Suspense fallback={null}>
+            <AppShellDynamic>{children}</AppShellDynamic>
+          </Suspense>
           <Footer />
         </ThemeProvider>
         <SpeedInsights />

@@ -1,3 +1,4 @@
+import { getArticleDetails } from "@/lib/services/articles/getArticleDetails"
 import { ImageResponse } from "next/og"
 
 // Image metadata
@@ -9,12 +10,13 @@ export const size = {
 export const contentType = "image/png"
 
 interface ImageGeneratorProps {
-  params: Promise<{ slug: string }>
+  params: Promise<{ id: string }>
 }
 
 // Image generation
 export default async function Image({ params }: ImageGeneratorProps) {
-  //   const post = await getPost(params.slug)
+  const { id } = await params
+  const article = await getArticleDetails(id)
 
   return new ImageResponse(
     // ImageResponse JSX element
@@ -29,7 +31,7 @@ export default async function Image({ params }: ImageGeneratorProps) {
         justifyContent: "center",
       }}
     >
-      {/* {post.title} */}
+      {article?.title}
     </div>
   )
 }

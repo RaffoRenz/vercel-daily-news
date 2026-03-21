@@ -1,3 +1,3 @@
-export default function ArticleListPage() {
-  return <>Articles List</>
+export default function ArticlesPage() {
+  return <>Articles</>
 }
