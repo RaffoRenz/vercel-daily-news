@@ -5,7 +5,6 @@ import Typography from "@/components/ui/atoms/typography"
 import { CircleXIcon, MegaphoneIcon } from "lucide-react"
 import { useDisclosure } from "@/hooks/useDisclosure"
 import { useCallback } from "react"
-import { useViewport } from "@/providers/viewport-provider"
 import { Badge } from "@/components/ui/atoms/badge"
 
 interface BreakingNewsClientProps {
@@ -16,7 +15,6 @@ export const BreakingNewsClient = ({
   breakingNewsContent,
 }: BreakingNewsClientProps) => {
   const { isOpen, close } = useDisclosure(true)
-  const { isMobile } = useViewport()
 
   const handleClose = useCallback(() => {
     close()
@@ -30,10 +28,11 @@ export const BreakingNewsClient = ({
           size={16}
           strokeWidth={2}
         />
-        <Badge variant="secondary">
-          {!isMobile
-            ? breakingNewsContent.category.toUpperCase()
-            : breakingNewsContent.category.toUpperCase().slice(0, 3)}
+        <Badge variant="secondary" className="hidden md:block">
+          {breakingNewsContent.category.toUpperCase()}
+        </Badge>
+        <Badge variant="secondary" className="block md:hidden">
+          {breakingNewsContent.category.slice(0, 3).toUpperCase()}
         </Badge>
       </section>
       <Typography

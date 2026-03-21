@@ -7,8 +7,7 @@ import { cn } from "@/lib/utils"
 import Header from "@/components/header/Header"
 import Footer from "@/components/footer"
 import { Metadata } from "next"
-import { Suspense } from "react"
-import { AppShellDynamic } from "@/components/common/AppShellDynamic"
+import BreakingNewsBanner from "@/components/BreakingNewsBanner"
 
 const notoSans = Noto_Sans({ variable: "--font-sans" })
 
@@ -41,9 +40,8 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <Header />
-          <Suspense fallback={null}>
-            <AppShellDynamic>{children}</AppShellDynamic>
-          </Suspense>
+          <BreakingNewsBanner />
+          <main className="h-full min-h-svh w-full">{children}</main>
           <Footer />
         </ThemeProvider>
         <SpeedInsights />
