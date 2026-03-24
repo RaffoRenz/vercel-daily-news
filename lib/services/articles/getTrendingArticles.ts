@@ -6,6 +6,7 @@ import { cacheTag } from "next/cache"
 export async function getTrendingArticles(
   excludedArticleIds?: string[]
 ): Promise<Article[] | null> {
+  "use cache"
   cacheTag("trending-articles")
   let trendingArticles: Article[] | null = null
   let apiEndpoint: string = "/api/articles/trending"

@@ -38,6 +38,11 @@
   --sidebar-border: oklch(0.922 0.005 325.62);
   --sidebar-ring: oklch(0.711 0.019 323.02);
 
+  /* Animations/Transition Tokens */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 600ms;
+
   --header-desktop-height: 64px;
   --header-mobile-height: 56px;
 }

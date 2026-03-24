@@ -61,10 +61,15 @@ interface Article extends Metadata {
   image: string
   tags: string[]
   author: Author
-  category: Category
-  content: ContentBlock<
-    TextBlock | HeadingBlock | BlockquoteBlock | ListBlock | ImageBlock
-  >[]
+  category: CategoryType
+  content: (
+    | ({ type: ContentBlockType.PARAGRAPH } & TextBlock)
+    | ({ type: ContentBlockType.HEADING } & HeadingBlock)
+    | ({ type: ContentBlockType.BLOCKQUOTE } & BlockquoteBlock)
+    | ({ type: ContentBlockType.UNORDERED_LIST } & ListBlock)
+    | ({ type: ContentBlockType.ORDERED_LIST } & ListBlock)
+    | ({ type: ContentBlockType.IMAGE } & ImageBlock)
+  )[]
   excerpt: string
   featured: boolean
 }
@@ -77,13 +82,12 @@ interface BreakingNews extends Metadata {
   urgent: boolean
 }
 
-export { CategoryType }
+export { CategoryType, ContentBlockType }
 
 export type {
   Author,
   Article,
   BreakingNews,
-  ContentBlockType,
   TextBlock,
   HeadingBlock,
   BlockquoteBlock,

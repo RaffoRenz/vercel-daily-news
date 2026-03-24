@@ -1,5 +1,5 @@
 "use client"
-import Typography from "../ui/atoms/typography"
+import { Typography } from "../ui/atoms/typography"
 
 export default function FooterDynamicContent() {
   return (

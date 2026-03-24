@@ -10,13 +10,13 @@ export const size = {
 export const contentType = "image/png"
 
 interface ImageGeneratorProps {
-  params: Promise<{ id: string }>
+  params: Promise<{ slug: string }>
 }
 
 // Image generation
 export default async function Image({ params }: ImageGeneratorProps) {
-  const { id } = await params
-  const article = await getArticleDetails(id)
+  const { slug } = await params
+  const article = await getArticleDetails(slug)
 
   return new ImageResponse(
     // ImageResponse JSX element

@@ -1,7 +1,7 @@
 "use client"
 
 import { BreakingNews } from "@/models/articles.models"
-import Typography from "@/components/ui/atoms/typography"
+import { Typography } from "@/components/ui/atoms/typography"
 import { CircleXIcon, MegaphoneIcon } from "lucide-react"
 import { useDisclosure } from "@/hooks/useDisclosure"
 import { useCallback } from "react"
