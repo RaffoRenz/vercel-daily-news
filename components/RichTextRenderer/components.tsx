@@ -1,6 +1,7 @@
 import ReactMarkdown from "react-markdown"
 import { Typography } from "../ui/atoms/typography"
 import Link from "next/link"
+import Image from "next/image"
 import {
   BlockquoteBlock,
   HeadingBlock,
@@ -8,26 +9,38 @@ import {
   ListBlock,
   TextBlock,
 } from "@/models/articles.models"
+import { Button } from "../ui/atoms/button"
 
 const Markdown = ({ children }: { children: string }) => {
   return (
     <ReactMarkdown
       components={{
         p: ({ children }) => (
-          <Typography lineHeight="1.6">{children}</Typography>
+          <Typography variant="body" lineHeight="1.6">
+            {children}
+          </Typography>
         ),
         strong: ({ children }) => (
-          <strong className="font-semibold">{children}</strong>
+          <Typography as="strong" variant="body" weight="bold">
+            {children}
+          </Typography>
         ),
         a: ({ href, children }) => (
-          <Link
-            href={href || "#"}
-            className="text-blue-600 underline"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Button
+            variant="link"
+            size="lg"
+            nativeButton={false}
+            className="px-0 leading-[1.6]"
+            render={
+              <Link
+                href={href || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            }
           >
             {children}
-          </Link>
+          </Button>
         ),
       }}
     >
@@ -92,7 +105,16 @@ const OrderedList = ({ items }: ListBlock) => (
 const ImageBlockComponent = ({ src, alt, caption }: ImageBlock) => {
   return (
     <figure className="space-y-2">
-      <img src={src} alt={alt} className="w-full rounded-xl" />
+      <div className="relative aspect-video w-full overflow-hidden rounded-xl">
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes="(max-width: 1024px) 100vw, 80vw"
+          className="object-cover"
+          unoptimized
+        />
+      </div>
       {caption && (
         <figcaption>
           <Typography variant="caption" align="center">

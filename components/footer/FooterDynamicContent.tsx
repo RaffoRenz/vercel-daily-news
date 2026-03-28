@@ -1,7 +1,8 @@
-"use client"
 import { Typography } from "../ui/atoms/typography"
 
-export default function FooterDynamicContent() {
+export default async function FooterDynamicContent() {
+  "use cache"
+
   return (
     <Typography
       variant="bodySm"

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   description: "Your daily dose of Vercel news and updates.",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode

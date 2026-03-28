@@ -1,21 +1,8 @@
-// import { UserRoundXIcon, UserRoundCheckIcon } from "lucide-react"
-import { Button } from "@/components/ui/atoms/button"
-// import { cookies } from "next/headers"
+import SubscriptionStatusPopover from "./SubscriptionStatusPopover"
+import { getSubscriptionFromCookie } from "@/lib/services/subscription-session"
 
 export default async function SubscriptionStatus() {
-  // const cookieStore = await cookies()
-  // const isSubscribed = cookieStore.get("subscribed")?.value === "true"
-  return (
-    <Button
-      variant="outline"
-      size="icon-lg"
-      // aria-label={isSubscribed ? "Subscribed" : "Not Subscribed"}
-    >
-      {/* {isSubscribed ? (
-        <UserRoundCheckIcon className="h-4 w-4" />
-      ) : (
-        <UserRoundXIcon className="h-4 w-4" />
-      )} */}
-    </Button>
-  )
+  const subscription = await getSubscriptionFromCookie()
+
+  return <SubscriptionStatusPopover isSubscribed={subscription.isSubscribed} />
 }

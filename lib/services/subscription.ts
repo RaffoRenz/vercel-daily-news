@@ -1,4 +1,3 @@
-"use server"
 import { fetchAPI } from "@/lib/api-client"
 import { ApiResponse, ERROR_CODE } from "./services.interfaces"
 import { Subscription } from "@/models/subscription.models"

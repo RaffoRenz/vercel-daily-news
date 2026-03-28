@@ -1,0 +1,41 @@
+import { RichTextRenderer } from "@/components/RichTextRenderer"
+import SubscribeCta from "@/components/common/SubscribeCta"
+import { Article } from "@/models/articles.models"
+import { getSubscriptionFromCookie } from "@/lib/services/subscription-session"
+
+interface ArticleContentPaywallProps {
+  content: Article["content"]
+}
+
+export default async function ArticleContentPaywall({
+  content,
+}: ArticleContentPaywallProps) {
+  const subscription = await getSubscriptionFromCookie()
+  const paywalled = !subscription.isSubscribed
+
+  return (
+    <>
+      <section className="mb-8">
+        <div
+          className={
+            paywalled ? "relative max-h-[50vh] overflow-hidden" : undefined
+          }
+        >
+          <RichTextRenderer content={content} />
+          {paywalled ? (
+            <div
+              className="pointer-events-none absolute right-0 bottom-0 left-0 h-52 bg-linear-to-t from-background via-background/90 to-transparent"
+              aria-hidden="true"
+            />
+          ) : null}
+        </div>
+      </section>
+
+      {paywalled ? (
+        <section className="mb-10">
+          <SubscribeCta description="This article is paywalled for non-subscribers. Subscribe to read the full content and access all premium articles." />
+        </section>
+      ) : null}
+    </>
+  )
+}

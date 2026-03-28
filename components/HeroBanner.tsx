@@ -1,66 +1,66 @@
 import Image from "next/image"
+import Link from "next/link"
 import { Typography } from "@/components/ui/atoms/typography"
 import { Button } from "@/components/ui/atoms/button"
-import { ChevronRight } from "lucide-react"
+import { ArrowRightIcon, NewspaperIcon } from "lucide-react"
+import HeroSubscriptionClient from "@/components/hero/HeroSubscriptionClient"
+import { getSubscriptionFromCookie } from "@/lib/services/subscription-session"
 
-export default function HeroBanner() {
+export default async function HeroBanner() {
+  const subscription = await getSubscriptionFromCookie()
+
   return (
-    <section className="relative flex h-[75vh] items-end justify-center overflow-hidden border-b-4 border-b-chart-1 px-4 pb-10 text-center text-white">
-      {/* Background Image */}
-      <Image
-        src="/assets/Vercel_banner.webp" // metti la tua immagine in /public
-        alt="Hero background"
-        fill
-        priority
-        className="z-0 object-cover object-center"
-      />
+    <section className="px-4 py-8 lg:py-10">
+      <div className="mx-auto grid w-full max-w-4/5 overflow-hidden rounded-2xl border border-border bg-card lg:grid-cols-2">
+        <div className="relative min-h-72 lg:min-h-105">
+          <Image
+            src="/assets/Vercel_banner.webp"
+            alt="Vercel Daily News hero"
+            fill
+            fetchPriority="high"
+            loading="eager"
+            className="object-cover object-center"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-black/10 via-black/25 to-background/75 lg:to-transparent" />
+        </div>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40" />
+        <div className="flex flex-col justify-center gap-4 p-6 sm:p-8 lg:p-10">
+          <Typography
+            variant="overline"
+            weight="semibold"
+            className="text-chart-2"
+          >
+            Real-time updates for modern devs
+          </Typography>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-3xl">
-        <Typography
-          variant="overline"
-          weight="semibold"
-          align="center"
-          className="text-primary-100 mb-2"
-        >
-          Real-time updates for modern devs
-        </Typography>
+          <Typography variant="h1" weight="bold" className="leading-tight">
+            What&apos;s new in Vercel and Next.js
+          </Typography>
 
-        <Typography
-          variant="h1"
-          weight="bold"
-          align="center"
-          className="text-primary-100 mb-6 leading-tight md:mb-3"
-        >
-          What’s new in Vercel & Next.js
-        </Typography>
+          <Typography variant="body" className="text-muted-foreground">
+            Discover the latest features, releases, and best practices shaping
+            the future of frontend development.
+          </Typography>
 
-        <Typography
-          variant="body"
-          align="center"
-          className="text-primary-200 leading-relaxed"
-        >
-          Discover the latest features, releases, and best practices shaping the
-          future of frontend development.
-        </Typography>
-        <Button
-          variant="link"
-          size="lg"
-          className="text-primary-100 mt-6"
-          nativeButton={false}
-          render={
-            <a
-              href="https://vercel.com/press"
-              target="_blank"
-              rel="noopener noreferrer"
+          <div className="mt-2 flex flex-wrap items-center gap-3">
+            <HeroSubscriptionClient
+              initialIsSubscribed={subscription.isSubscribed}
             />
-          }
-        >
-          Explore Articles <ChevronRight size={16} />
-        </Button>
+
+            <Button
+              variant="outline"
+              nativeButton={false}
+              render={
+                <Link href="/articles" prefetch>
+                  <NewspaperIcon className="size-4" />
+                  Browse articles
+                  <ArrowRightIcon className="size-4" />
+                </Link>
+              }
+            />
+          </div>
+        </div>
       </div>
     </section>
   )

@@ -41,12 +41,6 @@ interface Author {
   name: string
 }
 
-interface Category {
-  articleCount: number
-  name: CategoryType
-  slug: string
-}
-
 enum CategoryType {
   CHANGELOG = "changelog",
   ENGINEERING = "engineering",

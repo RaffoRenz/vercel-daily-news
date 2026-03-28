@@ -1,7 +1,8 @@
+"use server"
 import { fetchAPI } from "@/lib/api-client"
 import { Article, CategoryType } from "@/models/articles.models"
-import { ApiResponse } from "@/lib/services/services.interfaces"
-import { cacheTag } from "next/cache"
+import { ApiResponse, PaginationMeta } from "@/lib/services/services.interfaces"
+import { NotFoundError } from "@/lib/services/api-error"
 
 interface GetArticlesParams {
   page?: number
@@ -10,22 +11,23 @@ interface GetArticlesParams {
   search?: string
   featured?: boolean
 }
-
 export async function getArticles({
   page,
   limit,
   category,
   search,
   featured,
-}: GetArticlesParams): Promise<Article[] | null> {
-  "use cache"
-  cacheTag("articles", search ? `search:${search}` : "all")
+}: GetArticlesParams): Promise<{
+  articles: Article[] | null
+  meta?: PaginationMeta
+}> {
   let articles: Article[] | null = null
+  let paginationMetadata: PaginationMeta | undefined = undefined
   let apiEndpoint: string = "/api/articles"
   try {
     const params = new URLSearchParams()
-    if (page) params.append("page", page.toString())
-    if (limit) params.append("limit", limit.toString())
+    if (page !== undefined) params.append("page", page.toString())
+    if (limit !== undefined) params.append("limit", limit.toString())
     if (category) params.append("category", category)
     if (search) params.append("search", search)
     if (featured) params.append("featured", featured.toString())
@@ -33,13 +35,17 @@ export async function getArticles({
 
     const response = await fetchAPI<ApiResponse<Article[]>>(apiEndpoint, {
       method: "GET",
-      cache: "no-store",
-      next: { revalidate: 300 },
+      next: { revalidate: 60 },
     })
     articles = response.data
+    paginationMetadata = response?.meta?.pagination
   } catch (error) {
+    if (error instanceof NotFoundError) {
+      return { articles: [], meta: paginationMetadata }
+    }
+
     console.error("Error fetching articles:", error)
   }
 
-  return articles
+  return { articles, meta: paginationMetadata }
 }

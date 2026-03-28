@@ -24,18 +24,22 @@ function ThemeProvider({
 
 export function ThemeSwitcher() {
   const { resolvedTheme, setTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const currentTheme = mounted ? resolvedTheme : "light"
+  const nextTheme = currentTheme === "light" ? "dark" : "light"
 
   const toggleTheme = () => {
-    setTheme(resolvedTheme === "light" ? "dark" : "light")
+    setTheme(nextTheme)
   }
 
   return (
-    <Button
-      size="icon-lg"
-      onClick={toggleTheme}
-      aria-label={`Switch to ${resolvedTheme === "light" ? "dark" : "light"} theme (current: ${typeof window === "undefined" ? "light" : resolvedTheme})`}
-    >
-      {resolvedTheme === "light" ? (
+    <Button size="icon-lg" onClick={toggleTheme} aria-label="Toggle theme">
+      {currentTheme === "light" ? (
         <MoonIcon strokeWidth={1.5} />
       ) : (
         <SunIcon strokeWidth={1.5} />

@@ -36,5 +36,4 @@ pnpm-debug.log*
 next-env.d.ts
 
 #coding assistant - shadcn/ui
-.llm
-.agents
+.github

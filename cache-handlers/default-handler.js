@@ -2,7 +2,7 @@ const cache = new Map()
 const pendingSets = new Map()
 
 module.exports = {
-  async get(cacheKey, softTags) {
+  async get(cacheKey) {
     // Wait for any pending set operation to complete
     const pendingPromise = pendingSets.get(cacheKey)
     if (pendingPromise) {
@@ -47,12 +47,12 @@ module.exports = {
     // No-op for in-memory cache
   },
 
-  async getExpiration(tags) {
+  async getExpiration() {
     // Return 0 to indicate no tags have been revalidated
     return 0
   },
 
-  async updateTags(tags, durations) {
+  async updateTags(tags) {
     // Implement tag-based invalidation
     for (const [key, entry] of cache.entries()) {
       if (entry.tags.some((tag) => tags.includes(tag))) {

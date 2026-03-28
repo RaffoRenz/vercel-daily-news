@@ -8,7 +8,7 @@ const NavigationMenu = () => {
         variant="link"
         size="lg"
         nativeButton={false}
-        render={<Link href="/articles" prefetch />}
+        render={<Link href="/articles" prefetch scroll={false} />}
       >
         Articles
       </Button>

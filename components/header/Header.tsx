@@ -3,6 +3,7 @@ import NavigationMenu from "@/components/header/NavigationMenu"
 import { ThemeSwitcher } from "@/providers/theme-provider"
 import SubscriptionStatus from "@/components/common/SubscriptionStatus"
 import Link from "next/link"
+import { Suspense } from "react"
 
 const Header: React.FC = () => {
   return (
@@ -18,7 +19,9 @@ const Header: React.FC = () => {
           data-slot="navigation-actions"
           className="flex h-full w-fit items-center gap-4"
         >
-          <SubscriptionStatus />
+          <Suspense fallback={null}>
+            <SubscriptionStatus />
+          </Suspense>
           <ThemeSwitcher />
         </div>
       </div>

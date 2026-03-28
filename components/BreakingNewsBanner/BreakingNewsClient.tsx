@@ -43,12 +43,14 @@ export const BreakingNewsClient = ({
       >
         {breakingNewsContent.headline}
       </Typography>
-      <CircleXIcon
-        className="hover:bg-accent-hover absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer self-center rounded-sm text-accent-foreground"
-        size={16}
+      <button
+        type="button"
         onClick={handleClose}
-        strokeWidth={1.5}
-      />
+        aria-label="Dismiss breaking news"
+        className="hover:bg-accent-hover absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer self-center rounded-sm text-accent-foreground"
+      >
+        <CircleXIcon size={16} strokeWidth={1.5} />
+      </button>
     </div>
   ) : null
 }

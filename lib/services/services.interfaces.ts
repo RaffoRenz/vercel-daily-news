@@ -19,6 +19,10 @@ interface Error {
 interface ApiResponse<T> {
   data: T
   success: boolean
+  meta?: {
+    pagination: PaginationMeta
+  }
+
   error?: Error
 }
 

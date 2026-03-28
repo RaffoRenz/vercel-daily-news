@@ -1,13 +1,11 @@
 import { Article } from "@/models/articles.models"
 import { fetchAPI } from "@/lib/api-client"
 import { ApiResponse } from "@/lib/services/services.interfaces"
-import { cacheTag } from "next/cache"
+import { NotFoundError } from "@/lib/services/api-error"
 
 export async function getTrendingArticles(
   excludedArticleIds?: string[]
 ): Promise<Article[] | null> {
-  "use cache"
-  cacheTag("trending-articles")
   let trendingArticles: Article[] | null = null
   let apiEndpoint: string = "/api/articles/trending"
   try {
@@ -19,11 +17,14 @@ export async function getTrendingArticles(
     }
     const response = await fetchAPI<ApiResponse<Article[]>>(apiEndpoint, {
       method: "GET",
-      cache: "no-store",
-      next: { revalidate: 60 },
+      next: { revalidate: 300 },
     })
     trendingArticles = response.data
   } catch (error) {
+    if (error instanceof NotFoundError) {
+      return []
+    }
+
     console.error("Error fetching trending articles:", error)
   }
   return trendingArticles

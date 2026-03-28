@@ -2,12 +2,18 @@ import { getArticles } from "@/lib/services/articles/getArticles"
 import { Typography } from "@/components/ui/atoms/typography"
 import { Button } from "@/components/ui/atoms/button"
 import Link from "next/link"
-import ArticleCard from "@/components/ArticleCard"
+import SingleArticleCard from "@/components/articles/ArticleCard"
+import { cacheLife, cacheTag } from "next/cache"
+import ArticleCardSkeleton from "../articles/ArticleCardSkeleton"
+import { Suspense } from "react"
 
 const FeaturedArticles: React.FC = async () => {
+  "use cache"
+  cacheLife("hours")
+  cacheTag("featured_articles")
   const featuredArticles = await getArticles({ limit: 6 })
 
-  if (!featuredArticles || !featuredArticles?.length) return null
+  if (!featuredArticles || !featuredArticles?.articles?.length) return null
 
   return (
     <div
@@ -28,10 +34,18 @@ const FeaturedArticles: React.FC = async () => {
           }
         />
       </section>
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
-        {featuredArticles.map((article) => (
-          <ArticleCard key={article.id} article={article} />
-        ))}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Suspense
+          fallback={Array(6)
+            .fill(0)
+            .map((_, index) => (
+              <ArticleCardSkeleton key={index} />
+            ))}
+        >
+          {featuredArticles?.articles?.map((article) => (
+            <SingleArticleCard key={article.id} article={article} />
+          ))}
+        </Suspense>
       </div>
     </div>
   )
