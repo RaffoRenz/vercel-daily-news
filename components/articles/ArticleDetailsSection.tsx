@@ -2,35 +2,16 @@ import { Badge } from "../ui/atoms/badge"
 import { Typography } from "../ui/atoms/typography"
 import Image from "next/image"
 import ArticleContentPaywall from "./ArticleContentPaywall"
-import { getArticleDetails } from "@/lib/services/articles/getArticleDetails"
-import { NotFoundError } from "@/lib/services/api-error"
-import { notFound } from "next/navigation"
-import { connection } from "next/server"
+import { Article } from "@/models/articles.models"
+import { Suspense } from "react"
 
 interface ArticleDetailsSectionProps {
-  slug: string
+  article: Article
 }
 
-export default async function ArticleDetailsSection({
-  slug,
+export default function ArticleDetailsSection({
+  article,
 }: ArticleDetailsSectionProps) {
-  await connection()
-  let article
-
-  try {
-    article = await getArticleDetails(slug)
-  } catch (error) {
-    if (error instanceof NotFoundError) {
-      notFound()
-    }
-
-    throw error
-  }
-
-  if (!article) {
-    notFound()
-  }
-
   return (
     <div data-component={`article-details-${article.slug}`}>
       <section className="mb-6 space-y-3 border-b border-border pb-5">
@@ -53,7 +34,11 @@ export default async function ArticleDetailsSection({
           className="object-cover"
         />
       </section>
-      <ArticleContentPaywall content={article.content} />
+      <Suspense
+        fallback={<Typography variant="body">Loading content...</Typography>}
+      >
+        <ArticleContentPaywall content={article.content} />
+      </Suspense>
     </div>
   )
 }

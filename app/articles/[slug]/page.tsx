@@ -4,9 +4,24 @@ import { NotFoundError } from "@/lib/services/api-error"
 import { Metadata } from "next"
 import ArticleDetailsSection from "@/components/articles/ArticleDetailsSection"
 import TrendingArticles from "@/components/TrendingArticles"
+import { notFound } from "next/navigation"
+import { Article } from "@/models/articles.models"
 
 interface ArticlePageProps {
-  params: Promise<{ slug: string }>
+  params: Promise<{
+    slug: string
+  }>
+}
+
+export async function generateStaticParams() {
+  const articlesData = await getArticles({ page: 1, limit: 100 })
+  const params =
+    articlesData?.articles && articlesData?.articles?.length > 0
+      ? articlesData.articles?.map((article) => ({
+          slug: article.slug,
+        })) || []
+      : []
+  return params || []
 }
 
 export async function generateMetadata({
@@ -51,27 +66,31 @@ export async function generateMetadata({
   }
 }
 
-export async function generateStaticParams() {
-  const articlesData = await getArticles({ page: 1, limit: 100 })
-  const params =
-    articlesData?.articles && articlesData?.articles?.length > 0
-      ? articlesData.articles?.map((article) => ({
-          slug: article.slug,
-        })) || []
-      : []
-  return params || []
-}
-
-export default async function ArticlePage({ params }: ArticlePageProps) {
+const ArticlePage: React.FC<ArticlePageProps> = async ({ params }) => {
   const { slug } = await params
+  let article: Article | null = null
+
+  try {
+    article = await getArticleDetails(slug)
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      notFound()
+    }
+  }
+
+  if (!article) {
+    notFound()
+  }
 
   return (
     <div
       data-slot="article-page"
       className="h-full w-full px-4 py-10 lg:mx-auto lg:max-w-4/5"
     >
-      <ArticleDetailsSection slug={slug} />
+      <ArticleDetailsSection article={article} />
       <TrendingArticles />
     </div>
   )
 }
+
+export default ArticlePage

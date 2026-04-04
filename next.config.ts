@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   // Empty config, ready for options
   cacheComponents: true,
   images: {
+    minimumCacheTTL: 5 * 60,
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {

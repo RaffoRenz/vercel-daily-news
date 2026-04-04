@@ -5,7 +5,7 @@ import { cacheLife, cacheTag } from "next/cache"
 export default async function BreakingNewsBanner() {
   "use cache"
   cacheTag("breaking-news-banner")
-  cacheLife("minutes") // Cache for 60 seconds to balance freshness and performance
+  cacheLife("minutes")
   const breakingNewsContent = await getBreakingNews()
 
   if (!breakingNewsContent) return null

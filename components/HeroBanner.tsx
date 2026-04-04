@@ -3,12 +3,11 @@ import Link from "next/link"
 import { Typography } from "@/components/ui/atoms/typography"
 import { Button } from "@/components/ui/atoms/button"
 import { ArrowRightIcon, NewspaperIcon } from "lucide-react"
-import HeroSubscriptionClient from "@/components/hero/HeroSubscriptionClient"
-import { getSubscriptionFromCookie } from "@/lib/services/subscription-session"
+import { Skeleton } from "./ui/atoms/skeleton"
+import { Suspense } from "react"
+import HeroSubscriptionWrapper from "./hero/HeroSubscriptionWrapper"
 
 export default async function HeroBanner() {
-  const subscription = await getSubscriptionFromCookie()
-
   return (
     <section className="px-4 py-8 lg:py-10">
       <div className="mx-auto grid w-full max-w-4/5 overflow-hidden rounded-2xl border border-border bg-card lg:grid-cols-2">
@@ -44,10 +43,9 @@ export default async function HeroBanner() {
           </Typography>
 
           <div className="mt-2 flex flex-wrap items-center gap-3">
-            <HeroSubscriptionClient
-              initialIsSubscribed={subscription.isSubscribed}
-            />
-
+            <Suspense fallback={<Skeleton className="h-10 w-48 rounded-md" />}>
+              <HeroSubscriptionWrapper />
+            </Suspense>
             <Button
               variant="outline"
               nativeButton={false}
