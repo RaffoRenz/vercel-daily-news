@@ -35,7 +35,6 @@ export async function getArticles({
 
     const response = await fetchAPI<ApiResponse<Article[]>>(apiEndpoint, {
       method: "GET",
-      next: { revalidate: 60 },
     })
     articles = response.data
     paginationMetadata = response?.meta?.pagination

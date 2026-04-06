@@ -7,11 +7,11 @@ export const getArticleDetails = async (
   slug: string
 ): Promise<Article | null> => {
   "use cache"
-  cacheTag("article")
-  cacheLife("max")
+  cacheTag("article", slug)
+  cacheLife("news")
   const response = await fetchAPI<ApiResponse<Article>>(
     `/api/articles/${slug}`,
-    { method: "GET", next: { revalidate: 3600 } }
+    { method: "GET" }
   )
 
   return response.data

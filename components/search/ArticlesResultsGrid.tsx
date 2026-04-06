@@ -6,7 +6,7 @@ import { SearchXIcon, SlidersHorizontalIcon } from "lucide-react"
 import ArticleCard from "@/components/articles/ArticleCard"
 import { Typography } from "@/components/ui/atoms/typography"
 import { Article } from "@/models/articles.models"
-import ArticleCardSkeleton from "../articles/ArticleCardSkeleton"
+import ArticleCardSkeleton from "@/components/skeletons/ArticleCardSkeleton"
 import { Button } from "../ui/atoms/button"
 
 interface ArticlesResultsGridProps {

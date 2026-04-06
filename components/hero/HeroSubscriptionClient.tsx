@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useTransition } from "react"
+import { useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { BadgeCheckIcon, BadgeXIcon, SparklesIcon } from "lucide-react"
 
@@ -12,23 +12,24 @@ import { Button } from "@/components/ui/atoms/button"
 import { Spinner } from "@/components/ui/atoms/spinner"
 
 interface HeroSubscriptionClientProps {
-  initialIsSubscribed: boolean
+  isSubscribed: boolean
 }
 
 export default function HeroSubscriptionClient({
-  initialIsSubscribed,
+  isSubscribed,
 }: HeroSubscriptionClientProps) {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
-  const [isSubscribed, setIsSubscribed] = useState(initialIsSubscribed)
 
   const handleSubscriptionToggle = () => {
     startTransition(async () => {
       const result = isSubscribed
         ? await unsubscribeAction()
         : await subscribeAction()
-
-      setIsSubscribed(Boolean(result?.isSubscribed))
+      if (!result.isSubscribed) {
+        // Handle error case (e.g., show a toast notification)
+        console.error("Failed to update subscription status.")
+      }
       router.refresh()
     })
   }

@@ -3,7 +3,7 @@ import { getArticleDetails } from "@/lib/services/articles/getArticleDetails"
 import { NotFoundError } from "@/lib/services/api-error"
 import { Metadata } from "next"
 import ArticleDetailsSection from "@/components/articles/ArticleDetailsSection"
-import TrendingArticles from "@/components/TrendingArticles"
+import TrendingArticles from "@/components/trending-news"
 import { notFound } from "next/navigation"
 import { Article } from "@/models/articles.models"
 

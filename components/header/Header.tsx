@@ -1,7 +1,7 @@
 import VercelLogo from "@/components/VercelLogo"
 import NavigationMenu from "@/components/header/NavigationMenu"
 import { ThemeSwitcher } from "@/providers/theme-provider"
-import SubscriptionStatus from "@/components/common/SubscriptionStatus"
+import SubscriptionStatus from "@/components/subscriptions/SubscriptionStatus"
 import Link from "next/link"
 import { Suspense } from "react"
 

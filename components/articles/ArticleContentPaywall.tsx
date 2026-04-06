@@ -1,5 +1,5 @@
-import { RichTextRenderer } from "@/components/RichTextRenderer"
-import SubscribeCta from "@/components/common/SubscribeCta"
+import { RichTextRenderer } from "@/components/rich-text-renderer"
+import SubscribeCta from "@/components/subscriptions/SubscribeCta"
 import { Article } from "@/models/articles.models"
 import { getSubscriptionFromCookie } from "@/lib/services/subscription-session"
 

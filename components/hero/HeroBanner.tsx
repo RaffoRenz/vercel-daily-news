@@ -3,14 +3,14 @@ import Link from "next/link"
 import { Typography } from "@/components/ui/atoms/typography"
 import { Button } from "@/components/ui/atoms/button"
 import { ArrowRightIcon, NewspaperIcon } from "lucide-react"
-import { Skeleton } from "./ui/atoms/skeleton"
+import { Skeleton } from "@/components/ui/atoms/skeleton"
 import { Suspense } from "react"
-import HeroSubscriptionWrapper from "./hero/HeroSubscriptionWrapper"
+import HeroSubscriptionWrapper from "./HeroSubscriptionWrapper"
 
-export default async function HeroBanner() {
+export default function HeroBanner() {
   return (
     <section className="px-4 py-8 lg:py-10">
-      <div className="mx-auto grid w-full max-w-4/5 overflow-hidden rounded-2xl border border-border bg-card lg:grid-cols-2">
+      <div className="mx-auto grid w-full overflow-hidden rounded-2xl border border-border bg-card lg:max-w-4/5 lg:grid-cols-2">
         <div className="relative min-h-72 lg:min-h-105">
           <Image
             src="/assets/Vercel_banner.webp"

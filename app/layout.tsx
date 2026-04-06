@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 import Header from "@/components/header/Header"
 import Footer from "@/components/footer"
 import { Metadata } from "next"
-import BreakingNewsBanner from "@/components/BreakingNewsBanner"
+import BreakingNewsBanner from "@/components/breaking-news"
 
 const notoSans = Noto_Sans({ variable: "--font-sans" })
 

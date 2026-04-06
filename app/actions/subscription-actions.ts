@@ -1,6 +1,5 @@
 "use server"
 
-import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
 import { SubscriptionService } from "@/lib/services/subscription"
 import { SUBSCRIPTION_COOKIE } from "@/lib/constants"
@@ -39,8 +38,6 @@ export async function subscribeAction() {
     return { isSubscribed: false }
   }
 
-  revalidatePath("/")
-  revalidatePath("/articles")
   return { isSubscribed: true }
 }
 

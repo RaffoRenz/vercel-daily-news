@@ -2,14 +2,18 @@ import { fetchAPI } from "@/lib/api-client"
 import { BreakingNews } from "@/models/articles.models"
 import { ApiResponse } from "@/lib/services/services.interfaces"
 import { NotFoundError } from "@/lib/services/api-error"
+import { cacheLife, cacheTag } from "next/cache"
 
 export async function getBreakingNews(): Promise<BreakingNews | null> {
+  "use cache"
+  cacheTag("breaking_news")
+  cacheLife("news")
+
   let breakingNews: BreakingNews | null = null
   try {
-    // Always dynamic to keep banner content fresh.
     const response = await fetchAPI<ApiResponse<BreakingNews>>(
       "/api/breaking-news",
-      { method: "GET", cache: "no-store" }
+      { method: "GET" }
     )
     breakingNews = response.data
   } catch (error) {

@@ -1,9 +1,9 @@
-import FeaturedArticles from "@/components/FeaturedArticles"
-import HeroBanner from "@/components/HeroBanner"
+import FeaturedArticles from "@/components/featured-news"
+import HeroBanner from "@/components/hero/HeroBanner"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: "Vercel Daily News",
   description: "Vercel Daily News homepage with featured and breaking stories.",
   openGraph: {
     title: "Vercel Daily News",

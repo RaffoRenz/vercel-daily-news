@@ -8,8 +8,8 @@ export async function getTrendingArticles(
   excludedArticleIds?: string[]
 ): Promise<Article[] | null> {
   "use cache"
-  cacheLife("minutes")
   cacheTag("trending_articles")
+  cacheLife("news")
   let trendingArticles: Article[] | null = null
   let apiEndpoint: string = "/api/articles/trending"
   try {
@@ -21,7 +21,6 @@ export async function getTrendingArticles(
     }
     const response = await fetchAPI<ApiResponse<Article[]>>(apiEndpoint, {
       method: "GET",
-      next: { revalidate: 300 },
     })
     trendingArticles = response.data
   } catch (error) {
