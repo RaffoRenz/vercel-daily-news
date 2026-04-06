@@ -1,4 +1,4 @@
-import ArticleCardSkeleton from "@/components/articles/ArticleCardSkeleton"
+import ArticleCardSkeleton from "@/components/skeletons/ArticleCardSkeleton"
 import { Skeleton } from "@/components/ui/atoms/skeleton"
 
 export default function ArticlesLoadingState() {

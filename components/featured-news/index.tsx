@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/atoms/button"
 import Link from "next/link"
 import SingleArticleCard from "@/components/articles/ArticleCard"
 import { cacheLife, cacheTag } from "next/cache"
-import ArticleCardSkeleton from "../articles/ArticleCardSkeleton"
+import ArticleCardSkeleton from "@/components/skeletons/ArticleCardSkeleton"
 import { Suspense } from "react"
 
 const FeaturedArticles: React.FC = async () => {
   "use cache"
-  cacheLife("hours")
+  cacheLife("news")
   cacheTag("featured_articles")
-  const featuredArticles = await getArticles({ limit: 6 })
+  const featuredArticles = await getArticles({ limit: 6, featured: true })
 
   if (!featuredArticles || !featuredArticles?.articles?.length) return null
 
