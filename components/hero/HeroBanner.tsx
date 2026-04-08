@@ -11,7 +11,7 @@ export default function HeroBanner() {
   return (
     <section className="px-4 py-8 lg:py-10">
       <div className="mx-auto grid w-full overflow-hidden rounded-2xl border border-border bg-card lg:max-w-4/5 lg:grid-cols-2">
-        <div className="relative min-h-72 lg:min-h-105">
+        <div className="relative h-72 lg:h-105">
           <Image
             src="/assets/Vercel_banner.webp"
             alt="Vercel Daily News hero"

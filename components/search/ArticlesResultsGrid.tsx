@@ -34,7 +34,7 @@ export default function ArticlesResultsGrid({
   category = "",
   onClearFilters,
 }: ArticlesResultsGridProps) {
-  if (isPending) {
+  if (isPending && !articles.length) {
     return (
       <div className="grid grid-cols-2 gap-4 xl:grid-cols-3">
         {Array.from({ length: skeletonCount }).map((_, index) => (
@@ -90,9 +90,24 @@ export default function ArticlesResultsGrid({
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-4 xl:grid-cols-3">
-        {articles.map((article) => (
-          <ArticleCard key={article.id} article={article} />
+      {isPending ? (
+        <div className="mb-3 min-h-5" aria-live="polite">
+          <Typography variant="caption" className="text-muted-foreground">
+            Updating results...
+          </Typography>
+        </div>
+      ) : null}
+
+      <div
+        className="grid grid-cols-2 gap-4 xl:grid-cols-3"
+        aria-busy={isPending}
+      >
+        {articles.map((article, index) => (
+          <ArticleCard
+            key={article.id}
+            article={article}
+            prioritizeImage={index === 0}
+          />
         ))}
 
         {isLoadingMore

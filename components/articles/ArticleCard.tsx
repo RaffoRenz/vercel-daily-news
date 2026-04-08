@@ -7,16 +7,20 @@ import Link from "next/link"
 
 interface ArticleCardProps {
   article: Article
+  prioritizeImage?: boolean
 }
 
-const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
+const ArticleCard: React.FC<ArticleCardProps> = ({
+  article,
+  prioritizeImage = false,
+}) => {
   const publishedDate = new Date(article.publishedAt)
 
   return (
     <Card className="group h-full overflow-hidden">
       <Link
         href={`/articles/${article.slug}`}
-        prefetch
+        prefetch={false}
         className="flex h-full flex-col focus-visible:outline-none"
       >
         <div className="relative h-44 w-full overflow-hidden border-b border-border sm:h-48 lg:h-44 xl:h-48">
@@ -25,6 +29,8 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
               src={article.image}
               alt={article.title}
               fill
+              fetchPriority={prioritizeImage ? "high" : "auto"}
+              loading={prioritizeImage ? "eager" : "lazy"}
               className="duration-fast object-cover transition-transform group-hover:scale-105"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />

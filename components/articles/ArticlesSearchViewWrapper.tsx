@@ -2,6 +2,7 @@ import { CategoryType } from "@/models/articles.models"
 import ArticlesSearchView from "./ArticlesSearchView"
 import { getArticles } from "@/lib/services/articles/getArticles"
 import { PAGE_SIZE } from "@/lib/constants"
+import { cacheLife, cacheTag } from "next/cache"
 
 interface ArticlesSearchViewWrapperProps {
   searchParams: Promise<{
@@ -10,6 +11,19 @@ interface ArticlesSearchViewWrapperProps {
     order?: string
     page?: string
   }>
+}
+
+async function getInitialArticlesPage(params: {
+  page: number
+  limit: number
+  search?: string
+  category?: CategoryType
+}) {
+  "use cache"
+  cacheLife("news")
+  cacheTag("articles_listing")
+
+  return getArticles(params)
 }
 
 export default async function ArticlesSearchViewWrapper({
@@ -28,7 +42,7 @@ export default async function ArticlesSearchViewWrapper({
   const normalizedPage =
     Number.isInteger(parsedPage) && parsedPage >= 1 ? parsedPage : 1
 
-  const fetchedArticlesData = await getArticles({
+  const fetchedArticlesData = await getInitialArticlesPage({
     page: 1,
     limit: normalizedPage * PAGE_SIZE,
     search: normalizedQuery || undefined,
