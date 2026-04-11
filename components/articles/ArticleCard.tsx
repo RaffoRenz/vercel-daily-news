@@ -20,7 +20,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
     <Card className="group h-full overflow-hidden">
       <Link
         href={`/articles/${article.slug}`}
-        prefetch={false}
+        prefetch
         className="flex h-full flex-col focus-visible:outline-none"
       >
         <div className="relative h-44 w-full overflow-hidden border-b border-border sm:h-48 lg:h-44 xl:h-48">

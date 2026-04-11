@@ -20,6 +20,40 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value:
+              "public, max-age=30, s-maxage=300, stale-while-revalidate=60", // max-age = 30 seconds, s-maxage = 5 minutes, stale-while-revalidate = 1 minute
+          },
+        ],
+      },
+      {
+        // Images
+        source: "/:path*(jpg|jpeg|png|avif|webp|svg|gif)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "private, max-age=31536000, immutable", // max-age = 1 year
+          },
+        ],
+      },
+      {
+        // Fonts
+        source: "/:path*(woff|woff2|ttf|otf)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable", // max-age = 1 year
+          },
+        ],
+      },
+    ]
+  },
 }
 
 export default nextConfig

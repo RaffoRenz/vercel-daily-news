@@ -1,6 +1,13 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import { useSearchParams } from "next/navigation"
 
 import { getArticles } from "@/lib/services/articles/getArticles"
@@ -39,7 +46,7 @@ export function useInfiniteArticles({
   const sentinelRef = useRef<HTMLDivElement | null>(null)
   const currentSearchParams = useSearchParams()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setArticles(initialArticles)
     setCurrentPage(initialPage)
     setHasMore(hasNextPage)

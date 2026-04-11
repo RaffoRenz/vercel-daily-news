@@ -39,8 +39,8 @@ export default function ArticlesFiltersBar({
   categories,
 }: ArticlesFiltersBarProps) {
   return (
-    <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-center">
-      <div className="relative w-full md:max-w-md">
+    <div className="mb-6 grid grid-cols-1 gap-3 md:grid-cols-4">
+      <div className="relative col-span-1 md:col-span-2">
         <SearchIcon className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           value={query}
@@ -73,8 +73,9 @@ export default function ArticlesFiltersBar({
         }
       >
         <SelectTrigger
-          className="h-10 w-full cursor-pointer md:w-44"
+          className="col-span-1 w-full cursor-pointer"
           aria-label="Filter by category"
+          size="default"
         >
           <SelectValue />
         </SelectTrigger>
@@ -93,8 +94,9 @@ export default function ArticlesFiltersBar({
         onValueChange={(value) => onOrderChange(value as "newest" | "oldest")}
       >
         <SelectTrigger
-          className="h-10 w-full cursor-pointer md:w-40"
+          className="col-span-1 w-full cursor-pointer"
           aria-label="Order by publish date"
+          size="default"
         >
           <SelectValue />
         </SelectTrigger>

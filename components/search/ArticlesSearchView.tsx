@@ -34,6 +34,8 @@ export default function ArticlesSearchView({
   const [query, setQuery] = useState(initialQuery)
   const [category, setCategory] = useState<CategoryType | "">(initialCategory)
   const [order, setOrder] = useState<"newest" | "oldest">(initialOrder)
+  const [hasTriggeredFilterChange, setHasTriggeredFilterChange] =
+    useState(false)
 
   const categories = useMemo(
     () =>
@@ -80,19 +82,71 @@ export default function ArticlesSearchView({
 
   useEffect(() => {
     const trimmedQuery = query.trim()
+    const isQueryValid = trimmedQuery.length === 0 || trimmedQuery.length >= 3
 
-    if (trimmedQuery.length > 0 && trimmedQuery.length < 3) {
+    if (!isQueryValid) {
+      return
+    }
+
+    const hasFilterChanges =
+      trimmedQuery !== initialQuery || category !== initialCategory
+
+    if (!hasFilterChanges) {
       return
     }
 
     const timeout = setTimeout(() => {
-      if (trimmedQuery !== initialQuery || category !== initialCategory) {
-        navigateWithFilters(trimmedQuery, category, 1)
-      }
+      navigateWithFilters(trimmedQuery, category, 1)
     }, 350)
 
     return () => clearTimeout(timeout)
   }, [query, category, initialQuery, initialCategory, navigateWithFilters])
+
+  const handleQueryChange = useCallback(
+    (value: string) => {
+      setQuery(value)
+
+      const trimmedQuery = value.trim()
+      const isQueryValid = trimmedQuery.length === 0 || trimmedQuery.length >= 3
+
+      if (!isQueryValid) {
+        setHasTriggeredFilterChange(false)
+        return
+      }
+
+      setHasTriggeredFilterChange(
+        trimmedQuery !== initialQuery || category !== initialCategory
+      )
+    },
+    [category, initialCategory, initialQuery]
+  )
+
+  const handleCategoryChange = useCallback(
+    (value: CategoryType | "") => {
+      setCategory(value)
+
+      const trimmedQuery = query.trim()
+      const isQueryValid = trimmedQuery.length === 0 || trimmedQuery.length >= 3
+
+      if (!isQueryValid) {
+        setHasTriggeredFilterChange(false)
+        return
+      }
+
+      setHasTriggeredFilterChange(
+        trimmedQuery !== initialQuery || value !== initialCategory
+      )
+    },
+    [initialCategory, initialQuery, query]
+  )
+
+  const trimmedQuery = query.trim()
+  const isQueryValid = trimmedQuery.length === 0 || trimmedQuery.length >= 3
+  const hasUnsyncedFilters =
+    trimmedQuery !== initialQuery || category !== initialCategory
+  const isFilterLoading =
+    hasTriggeredFilterChange && isQueryValid && hasUnsyncedFilters
+  const isResultsPending = isPending || isFilterLoading
 
   const {
     displayedArticles,
@@ -115,6 +169,7 @@ export default function ArticlesSearchView({
   const handleClearFilters = useCallback(() => {
     setQuery("")
     setCategory("")
+    setHasTriggeredFilterChange(true)
 
     if (initialQuery !== "" || initialCategory !== "") {
       navigateWithFilters("", "", 1)
@@ -125,16 +180,16 @@ export default function ArticlesSearchView({
     <div>
       <ArticlesFiltersBar
         query={query}
-        onQueryChange={setQuery}
+        onQueryChange={handleQueryChange}
         category={category}
-        onCategoryChange={setCategory}
+        onCategoryChange={handleCategoryChange}
         order={order}
         onOrderChange={setOrder}
         categories={categories}
       />
 
       <ArticlesResultsGrid
-        isPending={isPending}
+        isPending={isResultsPending}
         isLoadingMore={isLoadingMore}
         hasMore={hasMore}
         articles={displayedArticles}

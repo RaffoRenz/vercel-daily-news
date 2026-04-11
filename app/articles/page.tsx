@@ -1,6 +1,6 @@
 import { Typography } from "@/components/ui/atoms/typography"
 import { Metadata } from "next"
-import ArticlesSearchViewWrapper from "@/components/articles/ArticlesSearchViewWrapper"
+import ArticlesSearchViewWrapper from "@/components/search/ArticlesSearchViewWrapper"
 import { Suspense } from "react"
 import ArticlesLoadingState from "@/components/skeletons/ArticlesLoadingState"
 
