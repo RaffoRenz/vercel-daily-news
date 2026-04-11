@@ -1,6 +1,8 @@
 import FeaturedArticles from "@/components/featured-news"
 import HeroBanner from "@/components/hero/HeroBanner"
+import ArticlesLoadingState from "@/components/skeletons/ArticlesLoadingState"
 import { Metadata } from "next"
+import { Suspense } from "react"
 
 export const metadata: Metadata = {
   title: "Vercel Daily News",
@@ -16,7 +18,9 @@ export default function Page() {
   return (
     <div data-slot="homepage" className="h-full w-full">
       <HeroBanner />
-      <FeaturedArticles />
+      <Suspense fallback={<ArticlesLoadingState />}>
+        <FeaturedArticles />
+      </Suspense>
     </div>
   )
 }
