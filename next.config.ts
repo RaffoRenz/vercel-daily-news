@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
       revalidate: 5 * 60,
       expire: 60 * 60,
     },
+    breakingNews: {
+      stale: 5 * 60,
+      revalidate: 2 * 60,
+      expire: 30 * 60,
+    },
   },
   images: {
     minimumCacheTTL: 5 * 60,

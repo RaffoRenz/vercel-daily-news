@@ -7,7 +7,7 @@ import { cacheLife, cacheTag } from "next/cache"
 export async function getBreakingNews(): Promise<BreakingNews | null> {
   "use cache"
   cacheTag("breaking_news")
-  cacheLife("news")
+  cacheLife("breakingNews")
 
   let breakingNews: BreakingNews | null = null
   try {
