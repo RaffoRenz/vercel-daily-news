@@ -27,7 +27,6 @@ export default function HeroSubscriptionClient({
         ? await unsubscribeAction()
         : await subscribeAction()
       if (!result.isSubscribed) {
-        // Handle error case (e.g., show a toast notification)
         console.error("Failed to update subscription status.")
       }
       router.refresh()

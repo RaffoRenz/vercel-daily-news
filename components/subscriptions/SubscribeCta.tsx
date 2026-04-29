@@ -6,6 +6,7 @@ import { Spinner } from "@/components/ui/atoms/spinner"
 import { Typography } from "@/components/ui/atoms/typography"
 import { useRouter } from "next/navigation"
 import { useTransition } from "react"
+import { toast } from "sonner"
 
 interface SubscribeCtaProps {
   title?: string
@@ -21,8 +22,13 @@ export default function SubscribeCta({
 
   const handleSubscribe = () => {
     startTransition(async () => {
-      await subscribeAction()
-      router.refresh()
+      try {
+        await subscribeAction()
+        toast.success("Successfully subscribed!")
+        router.refresh()
+      } catch {
+        toast.error("Subscription failed. Please try again.")
+      }
     })
   }
 

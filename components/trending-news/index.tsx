@@ -4,8 +4,12 @@ import Link from "next/link"
 import { Button } from "@/components/ui/atoms/button"
 import ArticleCard from "@/components/articles/ArticleCard"
 
-export default async function TrendingArticles() {
-  const featuredArticles = await getTrendingArticles()
+export default async function TrendingArticles({
+  excludedArticleIds,
+}: {
+  excludedArticleIds?: string[]
+}) {
+  const featuredArticles = await getTrendingArticles(excludedArticleIds)
   if (!featuredArticles || !featuredArticles?.length) return null
 
   return (
@@ -27,7 +31,7 @@ export default async function TrendingArticles() {
           }
         />
       </section>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-4">
         {featuredArticles.map((article) => (
           <ArticleCard key={article.id} article={article} />
         ))}

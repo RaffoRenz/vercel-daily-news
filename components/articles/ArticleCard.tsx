@@ -60,40 +60,47 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
               ))}
             </section>
           ) : null}
-
-          <Typography
-            variant="h4"
-            weight="semibold"
-            lineHeight="1.2"
-            className="line-clamp-2 min-h-13 pt-1"
-          >
-            {article.title}
-          </Typography>
-          <Typography
-            variant="caption"
-            className="pt-1 text-muted-foreground"
-            lineHeight="1.2"
-          >
-            {article.author.name}
-          </Typography>
+          {article.title && (
+            <Typography
+              variant="h4"
+              weight="semibold"
+              lineHeight="1.2"
+              className="line-clamp-2 min-h-13 pt-1"
+            >
+              {article.title}
+            </Typography>
+          )}
+          {article.author?.name && (
+            <Typography
+              variant="caption"
+              className="pt-1 text-muted-foreground"
+              lineHeight="1.2"
+            >
+              {article.author.name}
+            </Typography>
+          )}
         </CardHeader>
 
         <CardContent>
-          <Typography
-            variant="bodySm"
-            className="line-clamp-3 text-card-foreground"
-            lineHeight="1.3"
-          >
-            {article.excerpt}
-          </Typography>
-          <Typography
-            variant="caption"
-            className="mt-3 block text-muted-foreground"
-            align="right"
-            lineHeight="1.2"
-          >
-            {publishedDate.toLocaleDateString()}
-          </Typography>
+          {article.excerpt && (
+            <Typography
+              variant="bodySm"
+              className="line-clamp-3 text-card-foreground"
+              lineHeight="1.3"
+            >
+              {article.excerpt}
+            </Typography>
+          )}
+          {publishedDate && (
+            <Typography
+              variant="caption"
+              className="mt-3 block text-muted-foreground"
+              align="right"
+              lineHeight="1.2"
+            >
+              {publishedDate.toLocaleDateString()}
+            </Typography>
+          )}
         </CardContent>
       </Link>
     </Card>

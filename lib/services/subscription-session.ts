@@ -1,14 +1,8 @@
-import { cookies } from "next/headers"
-import { SUBSCRIPTION_COOKIE } from "@/lib/constants"
+import { headers } from "next/headers"
 
 export async function getSubscriptionFromCookie() {
-  const cookieStore = await cookies()
-  const token = cookieStore.get(SUBSCRIPTION_COOKIE)?.value
+  const headersList = await headers()
+  const isSubscribed = headersList.get("x-is-subscribed") === "true"
 
-  if (!token) {
-    return { token: null, isSubscribed: false }
-  }
-
-  // Product rule: if session token exists, user is treated as subscribed.
-  return { token, isSubscribed: true }
+  return { token: null, isSubscribed }
 }

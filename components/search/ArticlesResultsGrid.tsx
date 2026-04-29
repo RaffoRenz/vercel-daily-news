@@ -90,14 +90,6 @@ export default function ArticlesResultsGrid({
 
   return (
     <>
-      {/* {isPending ? (
-        <div className="mb-3 min-h-5" aria-live="polite">
-          <Typography variant="caption" className="text-muted-foreground">
-            Updating results...
-          </Typography>
-        </div>
-      ) : null} */}
-
       <div
         className="grid grid-cols-2 gap-4 xl:grid-cols-3"
         aria-busy={isPending}

@@ -11,9 +11,13 @@ import {
 import { Button } from "@/components/ui/atoms/button"
 import { BadgeCheckIcon, BadgeXIcon } from "lucide-react"
 import { Spinner } from "@/components/ui/atoms/spinner"
-import { unsubscribeAction } from "@/app/actions/subscription-actions"
+import {
+  subscribeAction,
+  unsubscribeAction,
+} from "@/app/actions/subscription-actions"
 import { useRouter } from "next/navigation"
 import { useTransition } from "react"
+import { toast } from "sonner"
 
 interface SubscriptionStatusPopoverProps {
   isSubscribed: boolean
@@ -25,29 +29,37 @@ export default function SubscriptionStatusPopover({
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
 
+  const handleSubscribe = () => {
+    startTransition(async () => {
+      await subscribeAction()
+      toast.success("Successfully subscribed!")
+      router.refresh()
+    })
+  }
+
   const handleUnsubscribe = () => {
     startTransition(async () => {
-      await unsubscribeAction()
-      router.refresh()
+      try {
+        await unsubscribeAction()
+        toast.success("Successfully unsubscribed!")
+        router.refresh()
+      } catch {
+        toast.error("Unsubscription failed. Please try again.")
+      }
     })
   }
 
   if (!isSubscribed) {
     return (
       <Button
-        variant="default"
-        size="lg"
-        aria-label="Subscription inactive"
+        variant="ghost"
+        size="icon-lg"
+        aria-label="Subscribe to unlock full access"
+        title="Subscribe to unlock full access"
         disabled={isPending}
+        onClick={handleSubscribe}
       >
-        {isPending ? (
-          <Spinner />
-        ) : (
-          <>
-            <span className="hidden lg:block">Subscribe</span>
-            <BadgeCheckIcon strokeWidth={1.5} />
-          </>
-        )}
+        {isPending ? <Spinner /> : <BadgeXIcon strokeWidth={1.5} />}
       </Button>
     )
   }
@@ -57,20 +69,13 @@ export default function SubscriptionStatusPopover({
       <PopoverTrigger
         render={
           <Button
-            variant="destructive"
-            size="lg"
-            aria-label="Subscription active"
+            variant="ghost"
+            size="icon"
+            aria-label="Subscription active - click to unsubscribe"
+            title="Subscription active - click to unsubscribe"
             disabled={isPending}
           >
-            {isPending ? (
-              <Spinner />
-            ) : (
-              <>
-                <span className="hidden lg:block">Unsubscribe</span>
-
-                <BadgeXIcon strokeWidth={1.5} />
-              </>
-            )}
+            {isPending ? <Spinner /> : <BadgeCheckIcon strokeWidth={1.5} />}
           </Button>
         }
       />

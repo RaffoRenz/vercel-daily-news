@@ -88,7 +88,7 @@ const ArticlePage: React.FC<ArticlePageProps> = async ({ params }) => {
       className="h-full w-full px-4 py-10 lg:mx-auto lg:max-w-4/5"
     >
       <ArticleDetailsSection article={article} />
-      <TrendingArticles />
+      <TrendingArticles excludedArticleIds={[article.id]} />
     </div>
   )
 }

@@ -1,11 +1,10 @@
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-  // Empty config, ready for options
   cacheComponents: true,
   cacheLife: {
     news: {
-      stale: 10 * 60,
+      stale: 15 * 60,
       revalidate: 5 * 60,
       expire: 60 * 60,
     },
@@ -33,12 +32,11 @@ const nextConfig: NextConfig = {
           {
             key: "Cache-Control",
             value:
-              "public, max-age=30, s-maxage=300, stale-while-revalidate=60", // max-age = 30 seconds, s-maxage = 5 minutes, stale-while-revalidate = 1 minute
+              "public, max-age=30, s-maxage=300, stale-while-revalidate=60",
           },
         ],
       },
       {
-        // Images
         source: "/:path*(jpg|jpeg|png|avif|webp|svg|gif)",
         headers: [
           {

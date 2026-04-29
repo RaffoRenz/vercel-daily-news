@@ -18,7 +18,7 @@ export default function Page() {
   return (
     <div data-slot="homepage" className="h-full w-full">
       <HeroBanner />
-      <Suspense fallback={<ArticlesLoadingState />}>
+      <Suspense fallback={<ArticlesLoadingState isFeatured />}>
         <FeaturedArticles />
       </Suspense>
     </div>

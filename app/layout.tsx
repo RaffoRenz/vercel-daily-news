@@ -10,6 +10,7 @@ import { Metadata } from "next"
 import BreakingNewsBanner from "@/components/breaking-news"
 import { Skeleton } from "@/components/ui/atoms/skeleton"
 import { Suspense } from "react"
+import { Toaster } from "@/components/ui/atoms/sonner"
 
 const notoSans = Noto_Sans({
   variable: "--font-sans",
@@ -44,9 +45,9 @@ export default async function RootLayout({
         notoSans.variable
       )}
     >
-      <head></head>
       <body>
         <ThemeProvider>
+          <Toaster />
           <Header />
           <Suspense fallback={<Skeleton className="h-9 w-full bg-gray-100" />}>
             <BreakingNewsBanner />
