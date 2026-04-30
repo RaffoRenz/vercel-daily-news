@@ -68,10 +68,7 @@ export async function generateMetadata({
 }
 
 const ArticlePage: React.FC<ArticlePageProps> = async ({ params }) => {
-  "use cache"
   const { slug } = await params
-  cacheTag("article", slug)
-  cacheLife("news")
   let article: Article | null = null
 
   try {
