@@ -3,12 +3,16 @@ import { Typography } from "@/components/ui/atoms/typography"
 import Link from "next/link"
 import { Button } from "@/components/ui/atoms/button"
 import ArticleCard from "@/components/articles/ArticleCard"
+import { cacheLife, cacheTag } from "next/cache"
 
 export default async function TrendingArticles({
   excludedArticleIds,
 }: {
   excludedArticleIds?: string[]
 }) {
+  "use cache"
+  cacheTag("trending_articles")
+  cacheLife("news")
   const featuredArticles = await getTrendingArticles(excludedArticleIds)
   if (!featuredArticles || !featuredArticles?.length) return null
 

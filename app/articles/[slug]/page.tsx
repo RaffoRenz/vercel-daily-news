@@ -6,6 +6,7 @@ import ArticleDetailsSection from "@/components/articles/ArticleDetailsSection"
 import TrendingArticles from "@/components/trending-news"
 import { notFound } from "next/navigation"
 import { Article } from "@/models/articles.models"
+import { cacheLife, cacheTag } from "next/cache"
 
 interface ArticlePageProps {
   params: Promise<{
@@ -67,7 +68,10 @@ export async function generateMetadata({
 }
 
 const ArticlePage: React.FC<ArticlePageProps> = async ({ params }) => {
+  "use cache"
   const { slug } = await params
+  cacheTag("article", slug)
+  cacheLife("news")
   let article: Article | null = null
 
   try {
